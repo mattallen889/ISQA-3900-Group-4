@@ -1,0 +1,104 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Page background */
+body {
+  background-color: #f4f4f4;
+}
+
+/* Header / Navbar */
+.navbar {
+  background-color: #8b3f1f; /* brown color */
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Left side buttons */
+.nav-left button,
+.nav-right button {
+  background-color: #d9d9d9;
+  border: none;
+  padding: 6px 12px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+}
+
+/* Main container */
+.container {
+  width: 80%;
+  margin: 30px auto;
+  background: #ddd;
+  padding: 30px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+/* Menu title */
+.container h2 {
+  margin-bottom: 20px;
+}
+
+/* Pizza grid */
+.menu {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+/* Individual card */
+.card {
+  background: white;
+  width: 200px;
+  padding: 15px;
+  margin: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Image placeholder */
+.card img {
+  width: 100%;
+  height: 120px;
+  background: #ccc;
+  margin-bottom: 10px;
+}
+
+/* Pizza title */
+.card h3 {
+  margin-bottom: 10px;
+}
+
+/* Input + button */
+.card input {
+  width: 60px;
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.card button {
+  padding: 5px 10px;
+  border: none;
+  background-color: #8b3f1f;
+  color: white;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+/* Cost text */
+.card p {
+  margin-top: 10px;
+  font-weight: bold;
+}

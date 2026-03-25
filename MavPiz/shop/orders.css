@@ -1,0 +1,73 @@
+/* General Styling */
+body {
+  background-color: #e8e8e8;
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+/* Brown Navbar (Consistent with your other pages) */
+.navbar {
+  background-color: #8D4B31;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar button {
+  background-color: #d3d3d3;
+  border: 1px solid #999;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
+/* Table Container */
+.orders-container {
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.orders-table {
+  width: 90%;
+  max-width: 1000px;
+  border-collapse: collapse; /* Removes double borders */
+  background-color: white;
+}
+
+/* Table Header */
+.orders-table th {
+  background-color: #d3d3d3; /* Grey header background */
+  border: 1px solid #bcbcbc;
+  padding: 10px;
+  text-align: left;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+/* Table Cells */
+.orders-table td {
+  border: 1px solid #bcbcbc;
+  padding: 12px 10px;
+  font-size: 0.9rem;
+  vertical-align: middle;
+}
+
+/* Action Buttons inside the table */
+.order-id-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.table-btn {
+  background-color: #e0e0e0;
+  border: 1px solid #666;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.table-btn:hover {
+  background-color: #d0d0d0;
+}

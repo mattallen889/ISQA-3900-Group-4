@@ -1,0 +1,85 @@
+/* Reuse Navbar CSS from previous slide */
+.navbar {
+  background-color: #8D4B31;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar button {
+  background-color: #d3d3d3;
+  border: 1px solid #999;
+  padding: 5px 12px;
+  margin-right: 5px;
+  font-size: 12px;
+}
+
+/* Page Layout */
+body {
+  background-color: #e0e0e0; /* Slightly darker grey background */
+  font-family: sans-serif;
+  margin: 0;
+}
+
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 60px;
+}
+
+h2 {
+  margin-bottom: 30px;
+}
+
+/* Form Styling */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Splits space equally between label and input */
+  gap: 15px;
+  width: 400px;
+  margin-bottom: 12px;
+  align-items: center;
+}
+
+.input-row label {
+  text-align: right;
+  font-size: 14px;
+}
+
+.input-row input {
+  padding: 4px;
+  border: 1px solid #999;
+  width: 180px;
+}
+
+/* Button & Link Styling */
+.submit-btn {
+  margin-top: 15px;
+  padding: 6px 15px;
+  background-color: #d3d3d3;
+  border: 1px solid #999;
+  cursor: pointer;
+}
+
+.form-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.form-links a {
+    font-size: 12px;
+    color: blue;
+    text-decoration: underline;
+    margin-bottom: 5px;
+}
