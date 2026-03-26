@@ -1,19 +1,26 @@
 from django import forms
-class CartAddProductForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        try: #if choices for quantity drop-down provided
-            mychoices = kwargs.pop('my_choices')
-            super(CartAddProductForm, self).__init__(*args, **kwargs)
-            self.fields["quantity"] = forms.TypedChoiceField(choices=mychoices,
-                coerce=int)
-        except: #use default of 21 if choices not provided
-            super(CartAddProductForm, self).__init__(*args, **kwargs)
-            self.fields["quantity"] = forms.TypedChoiceField(choices=[(i, str(i)) for i in range(1, 21)],
-                                                             coerce=int)
 
-    update = forms.BooleanField(required=False,
-                                    initial=False,
-                                    widget=forms.HiddenInput)
+
+class CartAddProductForm(forms.Form):
+    # This creates the number input box, defaulting to 1, with a max of 20
+    quantity = forms.IntegerField(
+        min_value=1,
+        max_value=20,
+        initial=1,
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'style': 'width: 80px;'})
+    )
+
+    update = forms.BooleanField(
+        required=False,
+        initial=False,
+        widget=forms.HiddenInput
+    )
+
+    def __init__(self, *args, **kwargs):
+        # We safely remove 'my_choices' if your views.py is still trying to pass it.
+        # This prevents Django from crashing with an "unexpected keyword" error.
+        kwargs.pop('my_choices', None)
+        super(CartAddProductForm, self).__init__(*args, **kwargs)
 
 
 
