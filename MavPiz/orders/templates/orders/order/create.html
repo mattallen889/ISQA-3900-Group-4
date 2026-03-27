@@ -22,7 +22,35 @@
 
   <form action="." method="post" class="order-form">
     {{ form.as_p }}
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <!--<p><label>Pickup Time: </label><input type="datetime-local" name="pickupTime"></p>-->
+      <p>Pickup Time:</p>
+
+      <select>
+      {% for timeIncrement in increments %}
+          <option value="{{ timeIncrement }}">{{ timeIncrement }}</option>
+          <br>
+      {% endfor %}
+        </select>
     <p><input type="submit" value="Place order"></p>
+
     {% csrf_token %}
   </form>
 {% endblock %}
