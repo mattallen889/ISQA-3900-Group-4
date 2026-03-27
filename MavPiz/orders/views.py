@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import render_to_string
+from django.core.mail import send_mail
 
 
 @staff_member_required
@@ -28,13 +29,33 @@ def order_create(request):
                 order.user = request.user
             order.save()
 
+            order_items_text = []
+            total_cost = 0
+
             for item in cart:
                 OrderItem.objects.create(order=order,
                                          product=item['product'],
                                          price=item['price'],
                                          quantity=item['quantity'])
+                line_total = item['price'] * item['quantity']
+                total_cost += line_total
+                order_items_text.append(f"{item['quantity']} x {item['product'].name} - ${line_total:.2f}")
                 item['product'].quantity = item['product'].quantity - item['quantity']
                 item['product'].save()
+            send_mail(subject=f"Your Maverick's Pizza Order was Received! #{order.id}",
+                message=(
+                    f"Thank you for your order, {order.first_name} {order.last_name}!\n\n"
+                    f"Your order number is {order.id}.\n\n"
+                    f"Order summary:\n"
+                    + "\n".join(order_items_text)
+                    + f"\n\nTotal: ${total_cost:.2f}\n\n"
+                    f"Thank you <3"
+                ),
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[order.email],
+                fail_silently=False,)
+
+
             cart.clear()
             request.session['order_id'] = order.id
 
