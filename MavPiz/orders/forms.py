@@ -28,14 +28,14 @@ class OrderCreateForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ['first_name', 'last_name', 'email', 'address',
-                  'postal_code', 'city', 'pickup_date', 'pickupTime']
+                  'postal_code', 'city', 'pickupTime']
 
-        widgets = {
+        '''widgets = {
             'pickup_date': forms.DateInput(attrs={'type': 'date'}),
-        }
+        }'''
 
-    def clean_pickup_date(self):
+    '''def clean_pickup_date(self):
         date = self.cleaned_data.get('pickup_date')
         if date and date < timezone.now().date():
             raise ValidationError("You cannot select a date in the past!")
-        return date
+        return date'''

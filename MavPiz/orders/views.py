@@ -27,8 +27,8 @@ def order_create(request):
         form = OrderCreateForm(request.POST)
         if form.is_valid():
             order = form.save(commit=False)
-            if request.user.is_authenticated:
-                order.user = request.user
+            '''if request.user.is_authenticated:
+                order.user = request.user'''
             order.save()
 
             order_items_text = []
@@ -128,6 +128,12 @@ def order_create(request):
                   {'cart': cart, 'form': form, 'currentHour': hour, 'currentMinute': minute, 'dayDivision': dayDivision,
                    'increments': increments})
 
+
+def paymentPageView(request):
+    return render(request, 'orders/order/payment_Page.html')
+
+def paymentPageSubmit():
+    pass
 
 @login_required
 def user_orders(request):
