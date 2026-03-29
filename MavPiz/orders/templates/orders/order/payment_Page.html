@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Payment Page</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+{% extends 'shop/base.html' %}
 
+{% block content %}
 <div class="payment-page">
   <div class="payment-container">
     <h2 class="payment-title">Complete Your Payment</h2>
@@ -51,6 +45,4 @@
     </form>
   </div>
 </div>
-
-</body>
-</html>
+{% endblock %}
