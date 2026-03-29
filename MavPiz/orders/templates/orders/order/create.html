@@ -21,36 +21,18 @@
   </div>
 
   <form action="." method="post" class="order-form">
-    {{ form.as_p }}
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <!--<p><label>Pickup Time: </label><input type="datetime-local" name="pickupTime"></p>-->
-      <p>Pickup Time:</p>
-
-      <select>
-      {% for timeIncrement in increments %}
-          <option value="{{ timeIncrement }}">{{ timeIncrement }}</option>
-          <br>
-      {% endfor %}
-        </select>
-    <p><input type="submit" value="Place order"></p>
-
     {% csrf_token %}
+
+    {% for field in form %}
+      <div style="margin-bottom: 15px;">
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.errors %}
+          <div style="color: red;">{{ field.errors }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <p><input type="submit" value="Place order" class="button"></p>
   </form>
 {% endblock %}
