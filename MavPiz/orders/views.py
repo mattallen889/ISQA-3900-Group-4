@@ -75,7 +75,7 @@ def order_create(request):
             # set the order in the session
             request.session['order_id'] = order.id
 
-            return render(request, 'orders/order/payment_Page.html', {'orderID': order.id})
+            return render(request, 'orders/order/payment_Page.html', {'orderID': order.id, 'price': f'${total_cost}'})
     else:
         form = OrderCreateForm()
 
