@@ -21,7 +21,8 @@ class Order(models.Model):
 
     '''pickup_date = models.DateField(default=timezone.now)'''
     # Added null=True, blank=True to fix the migration error
-    pickupTime = models.CharField(max_length=12, null=True, blank=True)
+    pickupTime = models.CharField(max_length=12)
+    ''', null=True, blank=True'''
 
     class Meta:
         ordering = ('-created',)

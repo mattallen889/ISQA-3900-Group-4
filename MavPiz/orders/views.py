@@ -13,6 +13,7 @@ from django.core.mail import send_mail
 from datetime import datetime
 
 
+
 @staff_member_required
 def admin_order_detail(request, order_id):
     order = get_object_or_404(Order, id=order_id)
@@ -20,6 +21,11 @@ def admin_order_detail(request, order_id):
                   'admin/orders/order/detail.html',
                   {'order': order})
 
+def paymentPageSubmit(request, orderID):
+    order = Order.objects.get(id=orderID)
+    order.paid = True
+    order.save()
+    return render(request, 'orders/order/created.html', {'order_id': order.id})
 
 def order_create(request):
     cart = Cart(request)
@@ -69,7 +75,7 @@ def order_create(request):
             # set the order in the session
             request.session['order_id'] = order.id
 
-            return render(request, 'orders/order/created.html', {'order_id': order.id})
+            return render(request, 'orders/order/payment_Page.html', {'orderID': order.id})
     else:
         form = OrderCreateForm()
 
@@ -128,12 +134,6 @@ def order_create(request):
                   {'cart': cart, 'form': form, 'currentHour': hour, 'currentMinute': minute, 'dayDivision': dayDivision,
                    'increments': increments})
 
-
-def paymentPageView(request):
-    return render(request, 'orders/order/payment_Page.html')
-
-def paymentPageSubmit():
-    pass
 
 @login_required
 def user_orders(request):

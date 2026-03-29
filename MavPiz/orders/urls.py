@@ -7,5 +7,5 @@ urlpatterns = [
     path('create/', views.order_create, name='order_create'),
     path('admin/order/<int:order_id>/', views.admin_order_detail, name='admin_order_detail'),
     path('my-orders/', views.user_orders, name='user_orders'),
-    path('pay', views.paymentPageView, name='paymentPageView'),
+    path('makepayment/<int:orderID>', views.paymentPageSubmit, name='paymentPageSubmit'),
 ]
