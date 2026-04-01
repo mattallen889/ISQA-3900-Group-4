@@ -1,13 +1,11 @@
 from django.db import models
-from django.conf import settings  # Required to link the user model
+from django.conf import settings
 from django.utils import timezone
 from shop.models import Product
 from datetime import datetime
 
-
 class Order(models.Model):
-    # Added the user field so orders can be tied to logged-in accounts
-    '''user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)'''
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -19,10 +17,8 @@ class Order(models.Model):
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
 
-    '''pickup_date = models.DateField(default=timezone.now)'''
-    # Added null=True, blank=True to fix the migration error
-    pickupTime = models.CharField(max_length=12)
-    ''', null=True, blank=True'''
+    pickup_date = models.DateField(null=True, blank=True)
+    pickupTime = models.CharField(max_length=12, default="-", blank=True)
 
     class Meta:
         ordering = ('-created',)
@@ -32,7 +28,6 @@ class Order(models.Model):
 
     def get_total_cost(self):
         return sum(item.get_cost() for item in self.items.all())
-
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order,

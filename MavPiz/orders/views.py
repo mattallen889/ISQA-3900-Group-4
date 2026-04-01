@@ -33,8 +33,8 @@ def order_create(request):
         form = OrderCreateForm(request.POST)
         if form.is_valid():
             order = form.save(commit=False)
-            '''if request.user.is_authenticated:
-                order.user = request.user'''
+            if request.user.is_authenticated:
+                order.user = request.user
             order.save()
 
             order_items_text = []
