@@ -3,6 +3,11 @@
     <form action="/register/signup/" method="post">
         {% csrf_token %}
         <h1>Registration Page</h1>
+
+        {% if errorPresent %}
+            <br><br><p>Error: {{ errorMsg }}</p><br><br>
+        {% endif %}
+
         <label>Username: </label> <input type="text" name="username"/><br><br>
         <label>First Name: </label> <input type="text" name="first_name"/><br><br>
         <label>Last Name: </label> <input type="text" name="last_name"/><br><br>
