@@ -1,8 +1,13 @@
 {% extends "shop/base.html" %}
 {% block content %}
-    <form action="" method="post">
+    <form action="/registration/userLogin/" method="post">
         {% csrf_token %}
         <h1>Login Page</h1>
+
+        {% if errorPresent %}
+            <br><br><p>Error: {{ errorMsg }}</p><br><br>
+        {% endif %}
+
         <label>Username: </label>  <input type="text" name="username"/><br><br>
         <label>Password: </label>  <input type="password" name="password"/><br><br>
         <button type="submit">Login</button>

@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login, logout
 from .models import Category, Product
 from cart.forms import CartAddProductForm
 from cart.cart import Cart
@@ -45,8 +45,22 @@ def product_detail(request, id):
 
 #added code for base.html connection by Nate
 
-def login(request):
-    return render(request, 'registration/login.html')
+def loginView(request):
+    return render(request, 'registration/login.html', {'errorPresent': False})
+
+def loginHandler(request):
+    if request.method == 'POST':
+        user = authenticate(username=request.POST['username'], password=request.POST['password'])
+        if user == None:
+            return redirect('/registration/loginError/')
+        else:
+            login(request, user)
+            return redirect('/catalog/profile/')
+    else:
+        return redirect('/registration/login/')
+
+def loginErrorHandler(request):
+    return render(request, 'registration/login.html', {'errorPresent': True, 'errorMsg': 'Username or password is not valid.'})
 
 def user_logout(request):
     if request.method == 'POST':
