@@ -1,4 +1,13 @@
 {% extends "shop/base.html" %}
 {% block content %}
-    <h1>Registration Page</h1>
+    <form action="/register/signup">
+        <h1>Registration Page</h1>
+        <label>Username: </label> <input type="text" name="username"/><br><br>
+        <label>First Name: </label> <input type="text" name="first_name"/><br><br>
+        <label>Last Name: </label> <input type="text" name="last_name"/><br><br>
+        <label>Email: </label> <input type="email" name="email"/><br><br>
+        <label>Password: </label> <input type="password" name="password"/><br><br>
+        <label>Retype Password: </label> <input type="password" name="password2"/><br><br>
+        <button type="submit">Sign Up</button>
+    </form>
 {% endblock %}
