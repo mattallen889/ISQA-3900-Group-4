@@ -22,9 +22,20 @@
         }
     </style>
 
-    <h1>Profile Page</h1>
+    <h1>Profile</h1>
+    <br>
+    <br>
+    <h3><u>Profile Information</u></h3>
 
+    <p>Username: {{ user.username }}</p>
+    <p>First Name: {{ user.first_name }}</p>
+    <p>Last Name: {{ user.last_name }}</p>
+    <p>Email Address: {{ user.email }}</p>
+    <br>
+    <br>
+    {% if user.is_authenticated and not user.is_staff %}
     <div class="profile-actions">
         <a href="{% url 'orders:user_orders' %}" class="btn btn-mav-blue">View My Orders</a>
     </div>
+    {% endif %}
 {% endblock %}
