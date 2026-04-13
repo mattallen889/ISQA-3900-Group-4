@@ -1,7 +1,7 @@
 {% extends 'shop/base.html' %}
 
 {% block content %}
-    <form action="/catalog/execute_menu_alteration/{{ args }}" method="post">
+    <form action="/catalog/execute_menu_alteration/{{ unalteredArgs }}" method="post">
         {% csrf_token %}
         <h3><u>Create New Menu Item</u></h3>
         <br><br><label>Product Name: </label>  <input type="text" name="name">

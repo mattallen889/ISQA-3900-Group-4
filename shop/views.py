@@ -103,20 +103,20 @@ def execute_menu_alteration(request, args):
             mode = args
 
             name = request.POST['name']
-            category = request.POST['category']
+            category = Category.objects.get(slug=request.POST['category'])
             image = request.POST['image']
             description = request.POST['description']
-            price = request.POST['price']
-            quantity = request.POST['quantity']
+            price = float(request.POST['price'])
+            quantity = int(request.POST['quantity'])
 
-            category = Product(name=name, category=category, image=image, description=description, price=price, quantity=quantity)
-            category.save()
+            product = Product(name=name, category=category, image=image, description=description, price=price, quantity=quantity)
+            product.save()
 
         elif (args.startswith('delete')):
             modeArgs = args.split('-')[1]
             product = Product.objects.get(id=modeArgs)
             product.delete()
-            return redirect(request, 'shop:edit_menu_items')
+
         elif (args.startswith('edit')):
             mode = args.split('-')[0]
             modeArgs = args.split('-')[1]
