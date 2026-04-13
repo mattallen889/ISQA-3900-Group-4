@@ -16,4 +16,5 @@ urlpatterns = [
 
     path('registration/logged_out/', views.logged_out, name='logged_out'), # Points to sign_up
     path('catalog/profile/', views.profile, name='profile'), # Points to profile
+    path('catalog/edit_menu_items/', views.edit_menu_items, name='edit_menu_items'),
 ]

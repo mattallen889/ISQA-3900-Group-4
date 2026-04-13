@@ -72,3 +72,9 @@ def logged_out(request):
 
 def profile(request):
     return render(request, 'catalog/profile.html')
+
+def edit_menu_items(request):
+    if request.user.is_authenticated and request.user.is_staff:
+        pass
+    else:
+        return redirect('/')

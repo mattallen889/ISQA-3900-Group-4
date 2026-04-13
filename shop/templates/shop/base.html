@@ -28,6 +28,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'orders:manage_customer_orders' %}">Manage Customer Orders</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Edit Menu</a>
+                </li>
                 {% elif user.is_authenticated and not user.is_staff %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'cart:cart_detail' %}">Cart</a>
