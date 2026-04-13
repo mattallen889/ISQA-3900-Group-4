@@ -14,8 +14,8 @@ from datetime import datetime
 
 def manage_customer_orders(request):
     if request.user.is_authenticated and request.user.is_staff:
-
-        return redirect('/')
+        customerOrders = Order.objects.all()
+        return render(request, 'admin/manageCustomerOrders.html', {'customerOrders': customerOrders})
     else:
         return redirect('/')
 
