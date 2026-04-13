@@ -43,18 +43,6 @@ def product_detail(request, id):
                    'cart_product_form': cart_product_form,
                    'cart': cart})
 
-def manage_customer_orders(request):
-    if request.user.is_authenticated and request.user.is_staff:
-        
-
-
-
-
-
-        return redirect('/')
-    else:
-        return redirect('/')
-
 #added code for base.html connection by Nate
 
 def loginView(request):

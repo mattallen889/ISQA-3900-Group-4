@@ -12,7 +12,12 @@ from django.core.mail import send_mail
 
 from datetime import datetime
 
+def manage_customer_orders(request):
+    if request.user.is_authenticated and request.user.is_staff:
 
+        return redirect('/')
+    else:
+        return redirect('/')
 
 @staff_member_required
 def admin_order_detail(request, order_id):

@@ -8,4 +8,5 @@ urlpatterns = [
     path('admin/order/<int:order_id>/', views.admin_order_detail, name='admin_order_detail'),
     path('my-orders/', views.user_orders, name='user_orders'),
     path('makepayment/<int:orderID>', views.paymentPageSubmit, name='paymentPageSubmit'),
+    path('manage_customer_orders/', views.manage_customer_orders, name='manage_customer_orders'),
 ]
