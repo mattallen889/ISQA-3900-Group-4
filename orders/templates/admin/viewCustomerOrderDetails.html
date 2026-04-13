@@ -1,0 +1,44 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+
+    <h1>View Customer Order Details</h1>
+
+    <h3><u>Order No. {{ order.id }}</u></h3>
+
+    <a href="/orders/finish_order/{{ order.id }}">Finish Order</a><br>
+    <a href="/orders/manage_customer_orders/">Back to Manage Customer Orders Page</a><br>
+    <br>
+
+    <p>Username: {{ order.user }}</p>
+    <p>First Name: {{ order.first_name }}</p>
+    <p>Last Name: {{ order.last_name }}</p>
+    <p>Email: {{ order.email }}</p>
+    <p>Address: {{ order.address }}</p>
+    <p>Postal Code: {{ order.postal_code }}</p>
+    <p>City: {{ order.city }}</p>
+    <p>Creation Date: {{ order.created }}</p>
+    <p>Updated Date: {{ order.updated }}</p>
+    <p>Pickup Date: {{ order.pickup_date }}</p>
+    <p>Pickup Time: {{ order.pickupTime }}</p>
+
+    <h3><u>Order Details</u></h3><br>
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+    {% for item in orderItems %}
+
+        <tr>
+            <td>{{ item.product }}</td>
+            <td>${{ item.price }}</td>
+            <td>{{ item.quantity }}</td>
+        </tr>
+
+    {% endfor %}
+    </table>
+
+
+{% endblock %}

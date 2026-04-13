@@ -19,6 +19,22 @@ def manage_customer_orders(request):
     else:
         return redirect('/')
 
+def view_customer_order_details(request, orderID):
+    if request.user.is_authenticated and request.user.is_staff:
+        order = Order.objects.get(id=orderID)
+        orderItems = OrderItem.objects.filter(order=order)
+        return render(request, 'admin/viewCustomerOrderDetails.html', {'order': order, 'orderItems': orderItems})
+    else:
+        return redirect('/')
+
+def finish_order(request, orderID):
+    if request.user.is_authenticated and request.user.is_staff:
+        order = Order.objects.get(id=orderID)
+        order.delete()
+        return redirect('/orders/manage_customer_orders/')
+    else:
+        return redirect('/')
+
 @staff_member_required
 def admin_order_detail(request, order_id):
     order = get_object_or_404(Order, id=order_id)

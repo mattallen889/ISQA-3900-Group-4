@@ -37,8 +37,8 @@
                 {{ order.pickupTime }}
             </td>
             <td>
-                <a href="">Manage Order</a><br><br>
-                <a href="">Finish Order</a>
+                <a href="/orders/view_customer_order_details/{{ order.id }}">Manage Order</a><br><br>
+                <a href="/orders/finish_order/{{ order.id }}">Finish Order</a><br>
             </td>
         </tr>
     {% endfor %}
