@@ -1,0 +1,10 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+    <form action="/catalog/execute_menu_category_alteration/create" method="post">
+        {% csrf_token %}
+        <h3><u>Create New Category</u></h3>
+        <br><br><label>Name:</label>  <input type="text" name="name"><br>
+        <br><br><button type="submit">Create New Category</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'shop/base.html' %}
+
+
+{% block content %}
+
+<h1>View and Edit Menu</h1>
+
+    <br><h3><u>Categories</u></h3><br>
+    <a href="/catalog/create_menu_category_form">Create New Category</a><br><br>
+    <table>
+        <tr>
+            <th>
+                Category Name
+            </th>
+            <th>
+                Category Options
+            </th>
+        </tr>
+        {% for item in categories %}
+        <tr>
+            <td>
+                {{ item.name }}
+            </td>
+            <td>
+                <a href="/catalog/execute_menu_category_alteration/delete-{{ item.id }}">Delete Category</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+
+    <br><h3><u>Products</u></h3><br>
+    <a href="/catalog/create_or_alter_menu_form/create">Create New Menu Item</a><br><br>
+    <table>
+        <tr>
+            <th>
+                Product Name
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Quantity Available
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Item Options
+            </th>
+        </tr>
+    {% for item in products %}
+        <tr>
+            <td>
+                {{ item.name }}
+            </td>
+            <td>
+                {{ item.category }}
+            </td>
+            <td>
+                {{ item.quantity }}
+            </td>
+            <td>
+                {{ item.price }}
+            </td>
+            <td>
+                <a href="">Delete Item</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+
+{% endblock %}

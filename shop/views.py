@@ -75,6 +75,82 @@ def profile(request):
 
 def edit_menu_items(request):
     if request.user.is_authenticated and request.user.is_staff:
-        pass
+        categories = Category.objects.all()
+        products = Product.objects.all()
+        return render(request, 'catalog/editMenuItems.html', {'categories': categories, 'products': products})
+    else:
+        return redirect('/')
+
+def create_or_alter_menu_form(request, args):
+    if request.user.is_authenticated and request.user.is_staff:
+        categories = Category.objects.all()
+        try:
+            modeArgs = None
+            if args == 'create':
+                mode = args
+            else:
+                mode = args.split('-')[0]
+                modeArgs = int(args.split('-')[1])
+            return render(request, 'catalog/createAlterMenuItemForm.html', {'unalteredArgs': args, 'mode': mode, 'args': modeArgs, 'categories': categories})
+        except:
+            return redirect('/')
+    else:
+        return redirect('/')
+
+def execute_menu_alteration(request, args):
+    if request.user.is_authenticated and request.user.is_staff:
+        if (args == 'create'):
+            mode = args
+
+            name = request.POST['name']
+            category = request.POST['category']
+            image = request.POST['image']
+            description = request.POST['description']
+            price = request.POST['price']
+            quantity = request.POST['quantity']
+
+            category = Product(name=name, category=category, image=image, description=description, price=price, quantity=quantity)
+            category.save()
+
+        elif (args.startswith('delete')):
+            modeArgs = args.split('-')[1]
+            product = Product.objects.get(id=modeArgs)
+            product.delete()
+            return redirect(request, 'shop:edit_menu_items')
+        elif (args.startswith('edit')):
+            mode = args.split('-')[0]
+            modeArgs = args.split('-')[1]
+
+            name = request.POST['name']
+            category = request.POST['category']
+            image = request.POST['image']
+            description = request.POST['description']
+            price = request.POST['price']
+            quantity = request.POST['quantity']
+
+        return redirect('shop:edit_menu_items')
+    else:
+        return redirect('/')
+
+def create_menu_category_form(request):
+    if request.user.is_authenticated and request.user.is_staff:
+        return render(request, 'catalog/createMenuCategoryForm.html')
+    else:
+        return redirect('/')
+
+def execute_menu_category_alteration(request, args):
+    if request.user.is_authenticated and request.user.is_staff:
+        if (args.startswith('create')):
+            mode = args
+            name = request.POST['name']
+            category = Category(name=name, slug=name)
+            category.save()
+        elif (args.startswith('delete')):
+            modeArgs = args.split('-')[1]
+            category = Category.objects.get(id=modeArgs)
+            category.delete()
+        else:
+            pass
+        return redirect('shop:edit_menu_items')
     else:
         return redirect('/')
