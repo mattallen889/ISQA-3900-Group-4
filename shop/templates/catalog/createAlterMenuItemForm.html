@@ -3,19 +3,36 @@
 {% block content %}
     <form action="/catalog/execute_menu_alteration/{{ unalteredArgs }}" method="post">
         {% csrf_token %}
-        <h3><u>Create New Menu Item</u></h3>
-        <br><br><label>Product Name: </label>  <input type="text" name="name">
-        <br><br><label>Product Category: </label>
-        <select name="category">
-            {% for category in categories %}
-                <option value="{{ category.slug }}">{{ category.name }}</option>
-            {% endfor %}
-        </select>
-        <br><br><label>Product Image: </label>  <input type="file" name="image">
-        <br><br><label>Product Description: </label>  <textarea name="description"></textarea>
-        <br><br><label>Product Price: </label>  <input type="text" name="price">
-        <br><br><label>Quantity: </label>  <input type="text" name="quantity">
+        {% if mode == 'create' %}
+            <h3><u>Create New Menu Item</u></h3>
+            <br><br><label>Product Name: </label>  <input type="text" name="name">
+            <br><br><label>Product Category: </label>
+            <select name="category">
+                {% for category in categories %}
+                    <option value="{{ category.slug }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <br><br><label>Product Image: </label>  <input type="file" name="image">
+            <br><br><label>Product Description: </label>  <textarea name="description"></textarea>
+            <br><br><label>Product Price: </label>  <input type="text" name="price">
+            <br><br><label>Quantity: </label>  <input type="text" name="quantity">
 
-        <br><br><button type="submit">Create New Menu Item</button>
+            <br><br><button type="submit">Create New Menu Item</button>
+        {% else %}
+            <h3><u>Edit Menu Item</u></h3>
+            <br><br><label>Product Name: </label>  <input type="text" name="name" placeholder="{{ modeArgs.name }}">
+            <br><br><label>Product Category: </label>
+            <select name="category">
+                {% for category in categories %}
+                    <option value="{{ category.slug }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <br><br><label>Product Image: </label>  <input type="file" name="image">
+            <br><br><label>Product Description: </label>  <textarea name="description">{{ modeArgs.description }}</textarea>
+            <br><br><label>Product Price: </label>  <input type="text" name="price" placeholder="{{ modeArgs.price }}">
+            <br><br><label>Quantity: </label>  <input type="text" name="quantity" placeholder="{{ modeArgs.quantity }}">
+
+            <br><br><button type="submit">Apply Edits</button>
+        {% endif %}
     </form>
 {% endblock %}

@@ -90,7 +90,7 @@ def create_or_alter_menu_form(request, args):
                 mode = args
             else:
                 mode = args.split('-')[0]
-                modeArgs = int(args.split('-')[1])
+                modeArgs = Product.objects.get(id=int(args.split('-')[1]))
             return render(request, 'catalog/createAlterMenuItemForm.html', {'unalteredArgs': args, 'mode': mode, 'args': modeArgs, 'categories': categories})
         except:
             return redirect('/')
@@ -102,12 +102,18 @@ def execute_menu_alteration(request, args):
         if (args == 'create'):
             mode = args
 
+            # Default values
+            price = 0.00
+            quantity = 0
+            description = ''
+
+
             name = request.POST['name']
             category = Category.objects.get(slug=request.POST['category'])
             image = request.POST['image']
             description = request.POST['description']
-            price = float(request.POST['price'])
-            quantity = int(request.POST['quantity'])
+            price = float(request.POST['price']) if request.POST['price'] != '' else price
+            quantity = int(request.POST['quantity']) if request.POST['quantity'] != '' else quantity
 
             product = Product(name=name, category=category, image=image, description=description, price=price, quantity=quantity)
             product.save()
@@ -122,11 +128,23 @@ def execute_menu_alteration(request, args):
             modeArgs = args.split('-')[1]
 
             name = request.POST['name']
-            category = request.POST['category']
+            category = Category.objects.get(slug=request.POST['category'])
             image = request.POST['image']
             description = request.POST['description']
             price = request.POST['price']
             quantity = request.POST['quantity']
+
+            print(f'{True if name == '' else False}\n{category}\n{image}\n{description}\n{price}\n{quantity}')
+
+            product = Product.objects.get(id=int(modeArgs))
+            product.name = name if request.POST['name'] != '' else product.name
+            product.category = category
+            product.image = image if request.POST['image'] != '' else product.image
+            product.description = description if request.POST['description'] != '' else product.description
+            product.price = float(price) if request.POST['price'] != '' else product.price
+            product.quantity = int(quantity) if request.POST['quantity'] != '' else product.quantity
+
+            product.save()
 
         return redirect('shop:edit_menu_items')
     else:
