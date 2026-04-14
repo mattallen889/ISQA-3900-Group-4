@@ -4,6 +4,10 @@
 
     <h1>Manage Customer Orders</h1>
 
+    <a href="{% url 'orders:add_manual_order' %}" class="btn btn-primary">
+        Add Order Manually
+    </a>
+
     <br>
     <br>
     <table>
@@ -38,7 +42,12 @@
             </td>
             <td>
                 <a href="/orders/view_customer_order_details/{{ order.id }}">Manage Order</a><br><br>
-                <a href="/orders/finish_order/{{ order.id }}">Finish Order</a><br>
+                <a href="/orders/finish_order/{{ order.id }}">Finish Order</a><br><br>
+                <a href="/orders/delete_order/{{ order.id }}"
+                    style="color: red;"
+                    onclick="return confirm('Are you sure you want to permanently delete this order?')">
+                    Delete Order
+                </a><br>
             </td>
         </tr>
     {% endfor %}

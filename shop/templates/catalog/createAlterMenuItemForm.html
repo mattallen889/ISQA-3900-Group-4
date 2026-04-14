@@ -1,7 +1,7 @@
 {% extends 'shop/base.html' %}
 
 {% block content %}
-    <form action="/catalog/execute_menu_alteration/{{ unalteredArgs }}" method="post">
+    <form action="/catalog/execute_menu_alteration/{{ unalteredArgs }}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% if mode == 'create' %}
             <h3><u>Create New Menu Item</u></h3>

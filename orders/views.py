@@ -1,7 +1,7 @@
 from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import OrderItem, Order, Product
-from .forms import OrderCreateForm
+from .forms import OrderCreateForm, ManualOrderItemForm
 from cart.cart import Cart
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
@@ -160,3 +160,41 @@ def order_create(request):
 def user_orders(request):
     orders = Order.objects.filter(user=request.user)
     return render(request, 'orders/order/my_orders.html', {'orders': orders})
+
+@staff_member_required
+def add_manual_order(request):
+    if request.method == 'POST':
+        form = OrderCreateForm(request.POST)
+        if form.is_valid():
+            order = form.save()
+            return redirect('orders:add_manual_order_items', orderID=order.id)
+    else:
+        form = OrderCreateForm()
+    return render(request, 'admin/addManualOrder.html', {'form': form})
+
+@staff_member_required
+def add_manual_order_items(request, orderID):
+    order = get_object_or_404(Order, id=orderID)
+    if request.method == 'POST':
+        form = ManualOrderItemForm(request.POST)
+        if form.is_valid():
+            order_item = form.save(commit=False)
+            order_item.order = order
+            order_item.price = order_item.product.price
+            order_item.save()
+            return redirect('orders:add_manual_order_items', orderID=order.id)
+    else:
+        form = ManualOrderItemForm()
+    order_items = OrderItem.objects.filter(order=order)
+
+    return render(request, 'admin/addManualOrderItems.html', {
+        'order': order,
+        'form': form,
+        'order_items': order_items
+    })
+
+@staff_member_required
+def delete_order(request, orderID):
+    order = get_object_or_404(Order, id=orderID)
+    order.delete()
+    return redirect('orders:manage_customer_orders')

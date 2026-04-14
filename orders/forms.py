@@ -1,5 +1,5 @@
 from django import forms
-from .models import Order
+from .models import Order, OrderItem
 
 # Create a tuple list of times (Value saved to DB, Human-readable name)
 TIME_CHOICES = [
@@ -34,4 +34,13 @@ class OrderCreateForm(forms.ModelForm):
 
         widgets = {
             'pickup_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+        }
+
+class ManualOrderItemForm(forms.ModelForm):   # *** ADDED ***
+    class Meta:
+        model = OrderItem
+        fields = ['product', 'quantity']
+        widgets = {
+            'product': forms.Select(attrs={'class': 'form-control'}),
+            'quantity': forms.NumberInput(attrs={'class': 'form-control', 'min': 1}),
         }

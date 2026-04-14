@@ -101,16 +101,13 @@ def execute_menu_alteration(request, args):
     if request.user.is_authenticated and request.user.is_staff:
         if (args == 'create'):
             mode = args
-
-            # Default values
             price = 0.00
             quantity = 0
             description = ''
 
-
             name = request.POST['name']
             category = Category.objects.get(slug=request.POST['category'])
-            image = request.POST['image']
+            image = request.FILES.get('image')
             description = request.POST['description']
             price = float(request.POST['price']) if request.POST['price'] != '' else price
             quantity = int(request.POST['quantity']) if request.POST['quantity'] != '' else quantity
@@ -129,17 +126,17 @@ def execute_menu_alteration(request, args):
 
             name = request.POST['name']
             category = Category.objects.get(slug=request.POST['category'])
-            image = request.POST['image']
+            image = request.FILES.get('image')
             description = request.POST['description']
             price = request.POST['price']
             quantity = request.POST['quantity']
 
-            print(f'{True if name == '' else False}\n{category}\n{image}\n{description}\n{price}\n{quantity}')
+            print(f"{True if name != '' else False}\n{category}\n{image}\n{description}\n{price}\n{quantity}")
 
             product = Product.objects.get(id=int(modeArgs))
             product.name = name if request.POST['name'] != '' else product.name
             product.category = category
-            product.image = image if request.POST['image'] != '' else product.image
+            product.image = image if image else product.image
             product.description = description if request.POST['description'] != '' else product.description
             product.price = float(price) if request.POST['price'] != '' else product.price
             product.quantity = int(quantity) if request.POST['quantity'] != '' else product.quantity
