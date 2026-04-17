@@ -9,7 +9,6 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
-
 from datetime import datetime
 
 def manage_customer_orders(request):
@@ -72,7 +71,6 @@ def order_create(request):
                 total_cost += line_total
                 order_items_text.append(f"{item['quantity']} x {item['product'].name} - ${line_total:.2f}")
 
-                # reduce the number of items in inventory based on this sale
                 item['product'].quantity = item['product'].quantity - item['quantity']
                 item['product'].save()
 
@@ -91,16 +89,13 @@ def order_create(request):
                 fail_silently=False,
             )
 
-            # clear the cart
             cart.clear()
-            # set the order in the session
             request.session['order_id'] = order.id
 
             return render(request, 'orders/order/payment_Page.html', {'orderID': order.id, 'price': f'${total_cost}'})
     else:
         form = OrderCreateForm()
 
-    # Get the current time
     currTime = datetime.now()
 
     currentTime = str(currTime).split(' ')[1].split('.')[0].split(':')
@@ -123,7 +118,6 @@ def order_create(request):
                       "22": "10",
                       "23": "11"}
 
-    # Convert current time into 12-hour format
     if hour == "00":
         hour = hourConversion["00"]
         dayDivision = 'AM'
@@ -135,7 +129,6 @@ def order_create(request):
 
     increments = []
 
-    # Find twelve 30-min increments
     while (len(increments) < 12):
         if (int(hour) + 1) < 12:
             increments.append(f"{str(int(hour) + 1)}:30 {dayDivision}")
@@ -155,11 +148,18 @@ def order_create(request):
                   {'cart': cart, 'form': form, 'currentHour': hour, 'currentMinute': minute, 'dayDivision': dayDivision,
                    'increments': increments})
 
-
 @login_required
 def user_orders(request):
     orders = Order.objects.filter(user=request.user)
     return render(request, 'orders/order/my_orders.html', {'orders': orders})
+
+@login_required
+def order_detail(request, order_id):
+    if request.user.is_staff:
+        order = get_object_or_404(Order, id=order_id)
+    else:
+        order = get_object_or_404(Order, id=order_id, user=request.user)
+    return render(request, 'orders/order/detail.html', {'order': order})
 
 @staff_member_required
 def add_manual_order(request):
