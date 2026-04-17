@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from .models import Category, Product
 from cart.forms import CartAddProductForm
 from cart.cart import Cart
+
 def product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
@@ -19,13 +20,9 @@ def product_list(request, category_slug=None):
                    'cart': cart})
 
 def product_detail(request, id):
-    product = get_object_or_404(Product,
-                                id=id,
-                                available=True)
-    #set choices for quantity available based on inventory and items in this session's cart
+    product = get_object_or_404(Product, id=id, available=True)
     cart = Cart(request)
     cartquantity = 0
-    #if item in cart, subtract the items in the cart from the quantity available
     for item in cart:
         cartproduct = get_object_or_404(Product, id=item['product'].id)
         if product == cartproduct:
@@ -33,7 +30,7 @@ def product_detail(request, id):
             break
     if product.quantity - cartquantity > 0:
         choices = [(i, str(i)) for i in range(1, product.quantity - cartquantity + 1)]
-    else: #no items left in inventory for this session
+    else:
         choices = [(1, 0)]
 
     cart_product_form = CartAddProductForm(my_choices=choices)
@@ -42,8 +39,6 @@ def product_detail(request, id):
                   {'product': product,
                    'cart_product_form': cart_product_form,
                    'cart': cart})
-
-#added code for base.html connection by Nate
 
 def loginView(request):
     return render(request, 'registration/login.html', {'errorPresent': False})
@@ -130,8 +125,6 @@ def execute_menu_alteration(request, args):
             description = request.POST['description']
             price = request.POST['price']
             quantity = request.POST['quantity']
-
-            print(f"{True if name != '' else False}\n{category}\n{image}\n{description}\n{price}\n{quantity}")
 
             product = Product.objects.get(id=int(modeArgs))
             product.name = name if request.POST['name'] != '' else product.name
