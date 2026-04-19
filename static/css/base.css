@@ -250,17 +250,17 @@ ul.errorlist {
 }
 
 .navbar {
-    background-color: #8B4513 !important; /* overrides Bootstrap's bg-dark */
+    background-color: #8B4513 
     border-bottom: 2px solid #5a2d0c;
 }
  
 .navbar .nav-link,
 .navbar .btn-link {
     background-color: #d4c5a9;
-    color: #222 !important;
+    color: #222 
     border: 1px solid #aaa;
     border-radius: 2px;
-    padding: 4px 12px !important;
+    padding: 4px 12px 
     margin: 2px 2px;
     text-decoration: none;
     font-size: 13px;
@@ -269,11 +269,11 @@ ul.errorlist {
 .navbar .nav-link:hover,
 .navbar .btn-link:hover {
     background-color: #c0b090;
-    color: #000 !important;
+    color: #000;
 }
  
 .navbar-text.text-light {
-    color: #fff !important;
+    color: #fff 
     font-weight: bold;
 }
  
