@@ -249,3 +249,32 @@ ul.errorlist {
     float:right;
 }
 
+.navbar {
+    background-color: #8B4513 !important; /* overrides Bootstrap's bg-dark */
+    border-bottom: 2px solid #5a2d0c;
+}
+ 
+.navbar .nav-link,
+.navbar .btn-link {
+    background-color: #d4c5a9;
+    color: #222 !important;
+    border: 1px solid #aaa;
+    border-radius: 2px;
+    padding: 4px 12px !important;
+    margin: 2px 2px;
+    text-decoration: none;
+    font-size: 13px;
+}
+ 
+.navbar .nav-link:hover,
+.navbar .btn-link:hover {
+    background-color: #c0b090;
+    color: #000 !important;
+}
+ 
+.navbar-text.text-light {
+    color: #fff !important;
+    font-weight: bold;
+}
+ 
+
